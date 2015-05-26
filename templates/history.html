@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div class="history-table">
+		<table width=100%>
+			{% for p in posts %}
+				<tr>
+					<td style = "padding-left:20px; background-color:#9ACD32" width=30%>
+						{{p.created.strftime("%c")}}
+					</td>
+
+					<td class = "history-subject">
+						{{p.subject}}
+					</td>
+
+					<td class = "history-link">
+						<a href = {{p.key().id()}}>view</a>
+					</td>
+
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+
+{% endblock %}

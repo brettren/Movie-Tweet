@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class = "search" align = "center">
+    
+      <form method="post">
+        Search Movie <input type="text" name="query" style="width:100px; height:20px" />
+        <input type="submit" >
+      </form>
+    </div>
+    <br><br>
+  {% for p in posts %}
+    {{ p.render() | safe }}
+    <br><br>
+  {% endfor %}
+
+{% endblock %}

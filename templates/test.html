@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div>
+		<h3>{{count}} results of "{{query}}"</h3>
+	</div>
+	<br>
+	<div align="center">
+		<table border='1'>
+			<tr align='center' valign='center'>
+				<td>Image</td><td width = 25%>Title</td><td>Year</td><td width = 15%>Director</td><td>Rating(10)</td><td>Outline</td><td width = 10%>Link to IMDb</td>
+			</tr>
+			{% for m in movies %}
+				<tr align='center' valign='center'>
+					<td>
+						<img src={{m["img_url"]}}>
+					</td>
+					<td>{{m["title"]}}</td>
+					<td>{{m["year"]}}</td>
+					<td>{{m["director"]}}</td>
+					<td>{{m["rating"]}}</td>
+					<td align="left" style = "padding-left:10px">{{m["outline"]}}</td>
+					<td><a href={{"http://www.imdb.com/%s" % m["url"]}}>details</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+		<p style = 'font-size:20px'><a href = '/blog'>Return</p>	
+	</div>
+	<br><br>
+{% endblock %}

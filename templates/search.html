@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div>
+		<h3>Search Result of "{{query}}"</h3>
+	</div>
+	<br>
+	<div class="search-table">
+		<table width=100%>
+			{% for r in results %}
+				<tr>
+					<td style = "background-color:#9ACD32; padding-left:20px" width=30%>
+						{{r["Year"]}}
+					</td>
+
+					<td class = "history-subject">
+						<a href = {{"/search/detailed?i=%s" % r["imdbID"]}} >
+						{{r["Title"]}} </a>
+					</td>
+
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+
+{% endblock %}
