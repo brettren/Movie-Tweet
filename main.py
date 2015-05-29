@@ -25,7 +25,7 @@ from string import letters
 import urllib2
 from xml.dom import minidom
 from google.appengine.api import urlfetch
-
+from google.appengine.api import memcache
 import webapp2
 import jinja2
 import HTMLParser
@@ -229,9 +229,21 @@ class Post(db.Model):
              'last_modified': self.last_modified.strftime(time_fmt)}
         return d
 
+
+
+def refresh_cache_posts(update = False):
+    key = 'post'
+    posts = memcache.get(key)
+    if posts is None or update:
+        posts = Post.all().order('-created')
+        posts = list(posts)
+        memcache.set(key, posts)
+    return posts
+
+
 class BlogFront(BlogHandler):  # render all post
     def get(self):
-        posts = greetings = Post.all().order('-created')  # descending order   return all posts
+        posts = refresh_cache_posts()  # descending order   return all posts
         if self.format == 'html':
 			self.render('front.html', posts = posts)
         else:
@@ -249,7 +261,7 @@ class PostPage(BlogHandler):  # render one post
     def get(self, post_id): # An instance of the Key class represents a unique key for a Datastore entity
         key = db.Key.from_path('Post', int(post_id), parent=blog_key()) # Builds a new Key object
         post = db.get(key)  # Fetch the specific Model instance(s) with the given key(s) from the Datastore
-
+        refresh_cache_posts(True)
         if not post:
             self.error(404)
             return
