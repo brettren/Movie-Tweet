@@ -6,5 +6,5 @@ The template of the project Movie-Tweet is from the Udacity course [Web Developm
 
 I added some my personal customize design to do the practice.  
 
-[Visit the website](http://www.movie-tweet-01.appspot.com)
+[Visit the website](http://movie-tweet-01.appspot.com/blog)
 
